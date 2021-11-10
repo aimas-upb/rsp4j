@@ -1,12 +1,13 @@
 package org.streamreasoning.rsp4j.csparql;
 
-import eu.larkc.csparql.cep.api.RdfStream;
-import eu.larkc.csparql.common.RDFTable;
-import eu.larkc.csparql.common.RDFTuple;
-import eu.larkc.csparql.core.ResultFormatter;
-import eu.larkc.csparql.core.engine.CsparqlEngineImpl;
-import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
-import eu.larkc.csparql.core.streams.formats.CSparqlQuery;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.stream.Collectors;
+
 import org.apache.commons.rdf.api.Graph;
 import org.streamreasoning.rsp4j.api.RDFUtils;
 import org.streamreasoning.rsp4j.api.engine.features.StreamRegistrationFeature;
@@ -17,9 +18,13 @@ import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.Binding;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.BindingImpl;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.VarImpl;
 
-import java.text.ParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+import eu.larkc.csparql.cep.api.RdfStream;
+import eu.larkc.csparql.common.RDFTable;
+import eu.larkc.csparql.common.RDFTuple;
+import eu.larkc.csparql.core.ResultFormatter;
+import eu.larkc.csparql.core.engine.CsparqlEngineImpl;
+import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
+import eu.larkc.csparql.core.streams.formats.CSparqlQuery;
 
 public class CSPARQLEngineRSP4J  implements StreamRegistrationFeature<DataStream<Graph>, DataStream<Graph>> {
 
@@ -34,7 +39,27 @@ public class CSPARQLEngineRSP4J  implements StreamRegistrationFeature<DataStream
         activateInference = false;
         proxyToQuery = new HashMap<>();
     }
-
+    
+    public void putStaticNamedModel(String iri, String modelReference) {
+    	engine.putStaticNamedModel(iri, modelReference);
+    }
+    
+    public void removeStaticNamedModel(String iri) {
+		engine.removeStaticNamedModel(iri);
+	}
+    
+    public void addDefaultModel(String modelReference) {
+    	engine.addDefaultModel(modelReference);
+    }
+    
+	public RDFTable evaluateGeneralQueryOverDatasource(String queryBody) {
+		return engine.evaluateGeneralQueryOverDatasource(queryBody);
+	}
+    
+	public RDFTable evaluateGeneralQuery(String queryBody) {
+		return engine.evaluateGeneralQuery(queryBody);
+	}
+	
     @Override
     public DataStream<Graph> register(DataStream<Graph> s) {
         RdfStream wrappedStream = new RDFStreamWrapper(s);

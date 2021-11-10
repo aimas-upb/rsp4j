@@ -1,10 +1,13 @@
 package org.streamreasoning.rsp4j.csparql;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.Syntax;
-import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.rdf.api.Graph;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.Syntax;
 import org.streamreasoning.rsp4j.api.operators.r2r.RelationToRelationOperator;
 import org.streamreasoning.rsp4j.api.operators.r2s.RelationToStreamOperator;
 import org.streamreasoning.rsp4j.api.operators.s2r.execution.assigner.StreamToRelationOp;
@@ -15,9 +18,7 @@ import org.streamreasoning.rsp4j.api.secret.time.Time;
 import org.streamreasoning.rsp4j.api.stream.data.DataStream;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.Binding;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
 
 public class CSPARQLAbstractQuery<O> implements ContinuousQuery<Graph, Graph,Binding,O> {
 

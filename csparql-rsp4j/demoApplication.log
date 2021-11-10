@@ -99,3 +99,7 @@ java.lang.NoClassDefFoundError: Could not initialize class net.sf.cglib.core.Ref
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+[main] ERROR org.apache.jena.riot  - [line: 1, col: 1 ] Content is not allowed in prolog.
+[main] ERROR org.apache.jena.riot  - [line: 1, col: 1 ] Content is not allowed in prolog.
+[main] ERROR org.apache.jena.riot  - [line: 1, col: 1 ] Content is not allowed in prolog.
+[main] ERROR org.apache.jena.riot  - [line: 1, col: 1 ] Content is not allowed in prolog.

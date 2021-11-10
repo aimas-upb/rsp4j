@@ -6,6 +6,7 @@ import eu.larkc.csparql.core.engine.CsparqlEngine;
 import eu.larkc.csparql.core.engine.CsparqlEngineImpl;
 import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
 import org.apache.commons.rdf.api.Graph;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import org.streamreasoning.rsp4j.api.querying.ContinuousQuery;
 import org.streamreasoning.rsp4j.api.querying.ContinuousQueryExecution;
@@ -14,6 +15,7 @@ import org.streamreasoning.rsp4j.debs2021.utils.StreamGenerator;
 import org.streamreasoning.rsp4j.io.DataStreamImpl;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.Binding;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,16 +84,18 @@ public class TestCSPARQL {
 
     @Test
     public void testRSP4JCSPARQLConstruct() throws InterruptedException {
-        StreamGenerator generator = new StreamGenerator();
+    	String log4jConfigFile = System.getProperty("user.dir")
+                + File.separator + "log4j.properties";
+		PropertyConfigurator.configure(log4jConfigFile);
+    	
+    	StreamGenerator generator = new StreamGenerator();
         DataStream<Graph> inputStream = generator.getStream("http://test/stream");
         DataStream<Graph> outputStream = new DataStreamImpl<>("http://out/stream");
-
-
 
         String query1 = "REGISTER QUERY GetColours AS "
                 + "PREFIX ex: <http://myexample.org/> "
                 + "CONSTRUCT { ?s ?p ?o }"
-                + "FROM STREAM <http://test/stream> [RANGE 5s STEP 1s] "
+                + "FROM STREAM <http://test/stream> [RANGE 5s STEP 3s] "
                 + "WHERE { ?s ?p ?o }";
 
 
@@ -108,8 +112,9 @@ public class TestCSPARQL {
         List<Object> resultCounter = new ArrayList<>();
         outputStream.addConsumer((el,ts)->resultCounter.add(el));
         generator.startStreaming();
-        Thread.sleep(3_000);
+        Thread.sleep(20_000);
         generator.stopStreaming();
+        System.out.println("Created: " + resultCounter.size() + " new events.");
         assertTrue(resultCounter.size()>0);
 
     }
