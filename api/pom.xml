@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>api</artifactId>
-    <version>1.0.0</version>
+    <version>${rsp4j.version}</version>
 
     <build>
         <plugins>
@@ -19,8 +19,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
             <plugin>

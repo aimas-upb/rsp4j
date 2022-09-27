@@ -9,6 +9,7 @@ import java.util.ServiceLoader;
 
 public class RDFUtils {
 
+    public static final IRI RDFTYPE = RDFUtils.createIRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
     private static final RDF rdf;
 
     static {
@@ -30,6 +31,11 @@ public class RDFUtils {
 
     public static Graph createGraph() {
         return getInstance().createGraph();
+    }
+    public static Graph copyGraph(Graph graph){
+        Graph newGraph = createGraph();
+        graph.stream().forEach(t->newGraph.add(t));
+        return newGraph;
     }
 
     public static Graph createGraph(BlankNodeOrIRI name, List<Quad> quadList) {
@@ -88,5 +94,10 @@ public class RDFUtils {
         return getInstance().createTriple(subject, predicate, object);
     }
 
-
+    public static double parseDouble(String doubleValue){
+        return Double.parseDouble(removeDataType(doubleValue));
+    }
+    private static String removeDataType(String dataLiteral){
+        return dataLiteral.substring(1,dataLiteral.lastIndexOf('"'));
+    }
 }

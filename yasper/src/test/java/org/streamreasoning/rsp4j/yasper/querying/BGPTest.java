@@ -6,6 +6,7 @@ import org.apache.commons.rdf.api.RDF;
 import org.junit.Test;
 import org.streamreasoning.rsp4j.api.RDFUtils;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.*;
+import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.joins.HashJoinAlgorithm;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ public class BGPTest {
         TP tp1 = new TP(s1,p1,o1);
 
         BGP bgp = BGP.createFrom(tp1)
-                .create();
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createGraph());
@@ -51,8 +52,8 @@ public class BGPTest {
         VarOrTerm o2 = new VarImpl("name");
         TP tp2 = new TP(s1,p2,o2);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .create();
+                .addTP(tp2)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createGraph());
@@ -73,13 +74,16 @@ public class BGPTest {
         VarOrTerm s1 = new VarImpl("color");
         VarOrTerm p1 = new TermImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
         VarOrTerm o1 = new VarImpl("type");
+
         TP tp1 = new TP(s1,p1,o1);
+
         VarOrTerm p2 = new TermImpl("http://test/hasName");
         VarOrTerm o2 = new VarImpl("name");
         TP tp2 = new TP(s1,p2,o2);
+
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .create();
+                .addTP(tp2)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createDuplicateGraph());
@@ -120,8 +124,8 @@ public class BGPTest {
         VarOrTerm o2 = new VarImpl("name");
         TP tp2 = new TP(s1,p2,o2);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .create();
+                .addTP(tp2)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createGraph());
@@ -144,9 +148,9 @@ public class BGPTest {
         VarOrTerm o3 = new VarImpl("freq");
         TP tp3 = new TP(s1,p3,o3);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .join(tp3)
-                .create();
+                .addTP(tp2)
+                .addTP(tp3)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createLargeGraph());
@@ -175,9 +179,9 @@ public class BGPTest {
         VarOrTerm o3 = new VarImpl("ab");
         TP tp3 = new TP(o2,p3,o3);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .join(tp3)
-                .create();
+                .addTP(tp2)
+                .addTP(tp3)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createLargeGraph());
@@ -203,9 +207,9 @@ public class BGPTest {
         VarOrTerm p3 = new TermImpl("observes");
         TP tp3 = new TP(o2,p3,s1);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .join(tp3)
-                .create();
+                .addTP(tp2)
+                .addTP(tp3)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createLargeGraph());
@@ -240,12 +244,12 @@ public class BGPTest {
         VarOrTerm o6 = new VarImpl("continent");
         TP tp6 = new TP(o2,p6,o6);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .join(tp3)
-                .join(tp4)
-                .join(tp5)
-                .join(tp6)
-                .create();
+                .addTP(tp2)
+                .addTP(tp3)
+                .addTP(tp4)
+                .addTP(tp5)
+                .addTP(tp6)
+                .build();
 
         //create a graph
         Stream<Graph> g = Stream.of(createLargeGraph());
@@ -274,9 +278,9 @@ public class BGPTest {
         VarOrTerm o2 = new VarImpl("continent");
         TP tp2 = new TP(s2,p2,o2);
         BGP bgp = BGP.createFrom(tp1)
-                .join(tp2)
-                .create();
-
+                .addTP(tp2)
+                .build();
+        bgp.setJoinAlgorithm(new HashJoinAlgorithm());
         //create a graph
         Stream<Graph> g = Stream.of(createLargeGraph());
         Stream<Binding> bindings = bgp.eval(g);
@@ -295,6 +299,23 @@ public class BGPTest {
         expected2.add(new VarImpl("country"), RDFUtils.createIRI("Belgium"));
         expected2.add(new VarImpl("continent"), RDFUtils.createIRI("Europe"));
         assertEquals(createSet(expected,expected2),bindings.collect(Collectors.toSet()));
+    }
+    @Test
+    public void testPrefixes(){
+        PrefixMap prefixes = new PrefixMap();
+        prefixes.addPrefix("","http://rsp4j.io/covid/");
+        // R2R
+        BGP bgp = BGP.createWithPrefixes(prefixes)
+                .addTP("?s", ":isIn", "?o")
+                .addTP("?s2",":isIn", "?o")
+                .build();
+        String result = bgp.getTPs().stream().map(tp->tp.getProperty().getIRIString()).findAny().get();
+        VarOrTerm var = bgp.getTPs().stream().map(tp->tp.getSubject()).findFirst().get();
+
+        assertEquals("http://rsp4j.io/covid/isIn",result);
+        assertEquals(new VarImpl("?s"),var);
+
+
     }
     private Graph createGraph(){
         RDF instance = RDFUtils.getInstance();

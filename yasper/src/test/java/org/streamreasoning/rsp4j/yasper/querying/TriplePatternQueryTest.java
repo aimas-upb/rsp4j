@@ -3,6 +3,8 @@ package org.streamreasoning.rsp4j.yasper.querying;
 import org.apache.commons.rdf.api.Graph;
 import org.junit.Test;
 import org.streamreasoning.rsp4j.api.RDFUtils;
+import org.streamreasoning.rsp4j.api.operators.r2r.Var;
+import org.streamreasoning.rsp4j.api.operators.r2r.utils.R2RPipe;
 import org.streamreasoning.rsp4j.api.operators.s2r.syntax.WindowNode;
 import org.streamreasoning.rsp4j.api.querying.Aggregation;
 import org.streamreasoning.rsp4j.api.querying.ContinuousQuery;
@@ -11,7 +13,11 @@ import org.streamreasoning.rsp4j.io.DataStreamImpl;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.*;
 import org.streamreasoning.rsp4j.yasper.querying.syntax.TPQueryFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,7 +42,7 @@ public class TriplePatternQueryTest {
         VarOrTerm o = new VarImpl("o");
         TP TP = new TP(s, p, o);
 
-        assertEquals(TP, query.r2r());
+        assertEquals(TP, query.r2r().getR2RComponents().get("default"));
 
     }
 
@@ -56,7 +62,7 @@ public class TriplePatternQueryTest {
         VarOrTerm o = new TermImpl(RDFUtils.createIRI("http://test/o"));
         TP TP = new TP(s, p, o);
 
-        assertEquals(TP, query.r2r());
+        assertEquals(TP, query.r2r().getR2RComponents().get("default"));
 
     }
 
@@ -145,6 +151,75 @@ public class TriplePatternQueryTest {
         Aggregation expected = new Aggregation(null, "?s", "?count", "Count");
         assertEquals(expected, query.getAggregations().get(0));
     }
+    @Test
+    public void testProjection() {
+        ContinuousQuery<Graph, Graph, Binding, Binding> query = TPQueryFactory.parse("" +
+                "REGISTER ISTREAM <http://out/stream> AS " +
+                "SELECT ?s ?p " +
+                "FROM NAMED WINDOW <http://test/window> ON <http://test/stream> [RANGE PT10S STEP PT5S] " +
+                "WHERE {" +
+                "   ?s ?p ?o ." +
+                "}");
+        List<Var> projections = new ArrayList<>();
+        projections.add(new VarImpl("s"));
+        projections.add(new VarImpl("p"));
+        assertEquals(projections, query.getProjections());
+    }
 
+    @Test
+    public void testFilter() {
+        ContinuousQuery<Graph, Graph, Binding, Binding> query = TPQueryFactory.parse("" +
+                "REGISTER ISTREAM <http://out/stream> AS " +
+                "SELECT ?s ?p " +
+                "FROM NAMED WINDOW <http://test/window> ON <http://test/stream> [RANGE PT10S STEP PT5S] " +
+                "WHERE {" +
+                "   ?s ?p ?o . Filter(?s = ?o)" +
+                "}");
+
+        R2RPipe pipe = (R2RPipe) query.r2r().getR2RComponents().get("default");
+
+        assertEquals(pipe.getR2rs().length, 2);
+    }
+
+    @Test
+    public void testPrefix() {
+        ContinuousQuery<Graph, Graph, Binding, Binding> query = TPQueryFactory.parse("" +
+                "PREFIX : <http://test/> " +
+                "PREFIX test: <http://test/> " +
+
+                "REGISTER ISTREAM test:outStream AS " +
+                "SELECT ?s ?p " +
+                "FROM NAMED WINDOW :window ON :stream [RANGE PT10S STEP PT5S] " +
+                "WHERE {" +
+                "   ?s ?p :test . Filter(?s = test:test2)" +
+                "}");
+
+        R2RPipe pipe = (R2RPipe) query.r2r().getR2RComponents().get("default");
+        String windowIRI = query.getWindowMap().keySet().stream().map(w->w.iri()).findFirst().get();
+        String streamIRI = query.getWindowMap().values().stream().map(d->d.getName()).findFirst().get();
+        assertEquals("http://test/window", windowIRI);
+        assertEquals("http://test/stream", streamIRI);
+        assertEquals("http://test/outStream",query.getOutputStream().getName());
+
+        assertEquals(pipe.getR2rs().length, 2);
+    }
+    @Test
+    public void testSyntacticSugar() {
+        ContinuousQuery<Graph, Graph, Binding, Binding> query = TPQueryFactory.parse("" +
+                "PREFIX : <http://test/> " +
+                "PREFIX test: <http://test/> " +
+
+                "REGISTER ISTREAM test:outStream AS " +
+                "SELECT ?s ?p " +
+                "FROM NAMED WINDOW :window ON :stream [RANGE PT10S STEP PT5S] " +
+                "WHERE {" +
+                "   ?s a :Test" +
+                "}");
+
+        TP tp = (TP) query.r2r().getR2RComponents().get("default");
+
+        assertEquals(new TermImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), tp.getProperty());
+
+    }
 
 }

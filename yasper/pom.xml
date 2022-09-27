@@ -10,13 +10,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>yasper</artifactId>
-    <version>1.0.0</version>
+    <version>${rsp4j.version}</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
             <groupId>org.streamreasoning.rsp4j</groupId>
             <artifactId>api</artifactId>
-            <version>1.0.0</version>
+            <version>${rsp4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
@@ -39,12 +51,12 @@
         <dependency>
             <groupId>org.streamreasoning.rsp4j</groupId>
             <artifactId>io</artifactId>
-            <version>1.0.0</version>
+            <version>${rsp4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.streamreasoning.rsp4j</groupId>
             <artifactId>web</artifactId>
-            <version>1.0.0</version>
+            <version>${rsp4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

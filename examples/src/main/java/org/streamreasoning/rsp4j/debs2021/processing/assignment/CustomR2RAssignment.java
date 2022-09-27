@@ -1,10 +1,10 @@
 package org.streamreasoning.rsp4j.debs2021.processing.assignment;
 
 import org.apache.commons.rdf.api.Graph;
-import org.streamreasoning.rsp4j.abstraction.ContinuousProgram;
-import org.streamreasoning.rsp4j.abstraction.TaskAbstractionImpl;
-import org.streamreasoning.rsp4j.abstraction.table.BindingStream;
-import org.streamreasoning.rsp4j.abstraction.utils.R2RPipe;
+import org.streamreasoning.rsp4j.operatorapi.ContinuousProgram;
+import org.streamreasoning.rsp4j.operatorapi.TaskOperatorAPIImpl;
+import org.streamreasoning.rsp4j.operatorapi.table.BindingStream;
+import org.streamreasoning.rsp4j.api.operators.r2r.utils.R2RPipe;
 import org.streamreasoning.rsp4j.api.RDFUtils;
 import org.streamreasoning.rsp4j.api.enums.ReportGrain;
 import org.streamreasoning.rsp4j.api.enums.Tick;
@@ -17,7 +17,7 @@ import org.streamreasoning.rsp4j.api.secret.time.Time;
 import org.streamreasoning.rsp4j.api.secret.time.TimeImpl;
 import org.streamreasoning.rsp4j.api.stream.data.DataStream;
 import org.streamreasoning.rsp4j.debs2021.utils.StreamGenerator;
-import org.streamreasoning.rsp4j.examples.operators.r2r.UpwardExtension;
+import org.streamreasoning.rsp4j.reasoning.csprite.UpwardExtension;
 import org.streamreasoning.rsp4j.yasper.content.GraphContentFactory;
 import org.streamreasoning.rsp4j.yasper.querying.operators.Rstream;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.*;
@@ -83,8 +83,8 @@ public class CustomR2RAssignment {
 
     R2RPipe<Graph,Binding> r2r = new R2RPipe<>(tp); // <- do not forget to add your r2r operator to the r2r pipeline
 
-    TaskAbstractionImpl<Graph, Graph, Binding, Binding> t =
-        new TaskAbstractionImpl.TaskBuilder()
+    TaskOperatorAPIImpl<Graph, Graph, Binding, Binding> t =
+        new TaskOperatorAPIImpl.TaskBuilder()
             .addS2R("stream1", build, "w1")
             .addR2R("w1", r2r)
             .addR2S("out", new Rstream<Binding, Binding>())

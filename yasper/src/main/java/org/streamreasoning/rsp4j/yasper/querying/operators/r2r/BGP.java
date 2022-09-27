@@ -5,6 +5,7 @@ import org.streamreasoning.rsp4j.api.operators.r2r.RelationToRelationOperator;
 import org.streamreasoning.rsp4j.api.querying.result.SolutionMapping;
 import org.streamreasoning.rsp4j.api.sds.SDS;
 import org.streamreasoning.rsp4j.api.sds.timevarying.TimeVarying;
+import org.streamreasoning.rsp4j.yasper.querying.PrefixMap;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.joins.JoinAlgorithm;
 import org.streamreasoning.rsp4j.yasper.querying.operators.r2r.joins.NestedJoinAlgorithm;
 
@@ -18,6 +19,8 @@ import java.util.stream.Stream;
 public class BGP implements RelationToRelationOperator<Graph, Binding> {
     private List<TP> tps;
     private JoinAlgorithm<Binding> joinAlgorithm;
+    private PrefixMap prefixes;
+
     private BGP(){
         tps = new ArrayList<>();
         joinAlgorithm = new NestedJoinAlgorithm();
@@ -26,8 +29,20 @@ public class BGP implements RelationToRelationOperator<Graph, Binding> {
         this();
         this.tps.add(tp1);
     }
+    public static BGP create(){
+        return new BGP();
+    }
     public static BGP createFrom(TP tp1) {
         return new BGP(tp1);
+    }
+    public static BGP createFrom(String s, String p , String o) {
+        return new BGP(new TP(s,p,o));
+    }
+
+    public static BGP createWithPrefixes(PrefixMap prefixes){
+        BGP bgp = new BGP();
+        bgp.prefixes = prefixes;
+        return bgp;
     }
 
     @Override
@@ -53,12 +68,15 @@ public class BGP implements RelationToRelationOperator<Graph, Binding> {
         return null;
     }
 
-    public BGP join(TP tp) {
+    public BGP addTP(TP tp) {
         tps.add(tp);
         return this;
     }
+    public BGP addTP(String s, String p, String o){
+        return this.addTP(new TP(s,p,o,prefixes));
+    }
 
-    public BGP create() {
+    public BGP build() {
         return this;
     }
 
@@ -78,4 +96,9 @@ public class BGP implements RelationToRelationOperator<Graph, Binding> {
     public int hashCode() {
         return Objects.hash(tps);
     }
+
+    public List<TP> getTPs() {
+        return tps;
+    }
+
 }

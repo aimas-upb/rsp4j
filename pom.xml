@@ -9,6 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <github.release>${project.version}</github.release>
+        <rsp4j.version>1.0.1</rsp4j.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -16,11 +17,15 @@
         <module>api</module>
         <module>yasper</module>
         <module>examples</module>
-        <module>abstraction</module>
+        <module>operatorapi</module>
         <module>io</module>
         <module>web</module>
-        <module>csparql-rsp4j</module>
-        <module>cqels-rsp4j</module>
+        <!--<module>csparql-rsp4j</module>
+        <module>cqels-rsp4j</module>-->
+        <module>csparql2</module>
+        <module>dsms</module>
+        <module>reasoning</module>
+        <module>mapping</module>
     </modules>
 
     <dependencyManagement>
@@ -76,10 +81,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
         </plugins>
