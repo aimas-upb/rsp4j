@@ -1,0 +1,24 @@
+# Shared Context Identification Test Query for the Researcher Lab Scenario
+PREFIX consert: <http://pervasive.semanticweb.org/ont/2017/07/consert/core#>
+PREFIX ann: <http://pervasive.semanticweb.org/ont/2017/07/consert/annotation#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX precis: <http://aimas.cs.pub.ro/consert/ontologies/precis#>
+PREFIX : <http://aimas.cs.pub.ro/consert/>
+
+REGISTER RSTREAM <SharedLab308Context> AS 
+SELECT *
+FROM NAMED WINDOW <ploc> ON :PersonLocatedStream [RANGE PT6S STEP PT5S]
+FROM <file:///home/alex/work/AI-MAS/projects/2022-CASHMERE/dev/cashmere-rsp4j/csparql2/src/test/resources/precis-static-assertions.ttl>
+WHERE 
+{  
+	?agent a foaf:Person .
+	
+	WINDOW ?win {
+		?persLocAssertion a precis:LocatedAt;
+			consert:assertionSubject ?agent ;
+			consert:assertionObject precis:lab308 .
+	}
+
+	BIND (now() AS ?dateTime)
+}

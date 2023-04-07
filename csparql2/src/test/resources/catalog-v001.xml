@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://pervasive.semanticweb.org/ont/2017/07/consert/core" uri="file:/home/alex/work/AI-MAS/projects/CONSERT/dev/consert-provisioning/CONSERT-Ontology/model/core/consert-core.rdf"/>
+    <uri id="Imports Wizard Entry" name="http://pervasive.semanticweb.org/ont/2017/07/consert/annotation" uri="file:/home/alex/work/AI-MAS/projects/CONSERT/dev/consert-provisioning/CONSERT-Ontology/model/core/consert-annotation.rdf"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1680866153780" name="duplicate:http://www.streamreasoning/it.polimi.CSPARQLEngine.test/artist" uri="artist.tbox2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1680866153780" name="duplicate:http://www.streamreasoning/it.polimi.CSPARQLEngine.test/artist" uri="artist.tbox.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1680866153780" name="http://www.streamreasoning.org/geldt" uri="geldt/geldt_event.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1680866153780" name="http://www.streamreasoning.org/ontologies/2018/9/colors" uri="colors.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1680866153780" name="https://www.gdeltproject.org/ontology" uri="geldt/geldt.owl"/>
+    </group>
+</catalog>

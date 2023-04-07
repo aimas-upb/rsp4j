@@ -54,7 +54,7 @@ public class GraphStream extends DataStreamImpl implements Runnable {
             m.add(m.createStatement(person, RDF.type, type));
             m.add(m.createStatement(person, hasAge, age));
 
-//            System.out.println("At [" + appTimestamp1 + "] [" + System.currentTimeMillis() + "] Sending [" + m.getGraph() + "] on " + stream_uri);
+           System.out.println("At [" + appTimestamp1 + "] [" + System.currentTimeMillis() + "] Sending [" + m.getGraph() + "] on " + stream_uri);
 
             if (s != null)
                 this.s.put(m.getGraph(), appTimestamp1);

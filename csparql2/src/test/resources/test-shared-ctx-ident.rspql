@@ -1,0 +1,36 @@
+# Shared Context Identification Test Query for the Researcher Lab Scenario
+PREFIX consert: <http://pervasive.semanticweb.org/ont/2017/07/consert/core#>
+PREFIX ann: <http://pervasive.semanticweb.org/ont/2017/07/consert/annotation#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX precis: <http://aimas.cs.pub.ro/consert/ontologies/precis#>
+PREFIX : <http://aimas.cs.pub.ro/consert/>
+
+REGISTER RSTREAM <SharedLab308Context> AS 
+CONSTRUCT {
+	precis:lab308group vcard:member ?agent .
+}
+FROM NAMED WINDOW <ploc> ON :PersonLocatedStream [RANGE PT6S STEP PT5S]
+FROM <file:///home/alex/work/AI-MAS/projects/2022-CASHMERE/dev/cashmere-rsp4j/csparql2/src/test/resources/precis-static-assertions.ttl>
+FROM <file:///home/alex/work/AI-MAS/projects/2022-CASHMERE/dev/cashmere-rsp4j/csparql2/src/test/resources/precis-profiled-assertions.ttl>
+WHERE 
+{  
+	?agent a foaf:Person .
+	
+	?worksAssertion a precis:WorksAt ;
+		consert:assertionSubject ?agent ;
+		consert:assertionObject precis:upb ;
+		ann:hasAnnotation ?validAnn .
+	?validAnn a ann:TemporalValidityAnnotation ;
+		ann:startTime ?employmentStart ;
+		ann:endTime ?employmentEnd .
+
+	WINDOW <ploc> {
+		?persLocAssertion a precis:LocatedAt;
+			consert:assertionSubject ?agent ;
+			consert:assertionObject precis:lab308 .
+	}
+	
+	BIND (now() AS ?dateTime)
+	FILTER (?dateTime > ?employmentStart && ?dateTime < ?employmentEnd)
+}

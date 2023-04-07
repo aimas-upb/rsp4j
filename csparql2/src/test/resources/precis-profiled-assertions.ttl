@@ -1,0 +1,50 @@
+@prefix : <http://aimas.cs.pub.ro/consert/ontologies/precis#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix consert-ann: <http://pervasive.semanticweb.org/ont/2017/07/consert/annotation#> .
+@prefix consert-core: <http://pervasive.semanticweb.org/ont/2017/07/consert/core#> .
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#alexWorkPlace
+:alexWorkPlace rdf:type owl:NamedIndividual ,
+                        :WorksAt ;
+               consert-ann:hasAnnotation :alexWorkTemporalAnn ;
+               consert-core:assertionObject :upb ;
+               consert-core:assertionSubject :alex .
+
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#alexWorkTemporalAnn
+:alexWorkTemporalAnn rdf:type owl:NamedIndividual ,
+                     consert-ann:TemporalValidityAnnotation ;
+                     consert-ann:endTime "2060-02-01T10:00:00+03:00"^^xsd:dateTime ;
+                     consert-ann:startTime "2020-02-01T10:00:00+03:00"^^xsd:dateTime .
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#blinds308Location
+:blinds308Location rdf:type owl:NamedIndividual ,
+                            :LocatedAt ;
+                   consert-core:assertionAcquisitionType consert-core:Profiled ;
+                   consert-core:assertionObject :lab308 ;
+                   consert-core:assertionSubject :blindsLab308 .
+
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#blinds308ownership
+:blinds308ownership rdf:type owl:NamedIndividual ,
+                             :OwnedBy ;
+                    consert-core:assertionObject :upb ;
+                    consert-core:assertionSubject :blindsLab308 .
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#hueLamp308Location
+:hueLamp308Location rdf:type owl:NamedIndividual ,
+                             :LocatedAt ;
+                    consert-core:assertionAcquisitionType consert-core:Profiled ;
+                    consert-core:assertionObject :lab308 ;
+                    consert-core:assertionSubject :hueLampLab308 .
+
+
+###  http://aimas.cs.pub.ro/consert/ontologies/precis#hueLamp308ownership
+:hueLamp308ownership rdf:type owl:NamedIndividual ,
+                              :OwnedBy ;
+                     consert-core:assertionObject :upb ;
+                     consert-core:assertionSubject :hueLampLab308 .
