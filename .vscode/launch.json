@@ -1,0 +1,413 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "TestRSPQLParser",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.csparql2.syntax.TestRSPQLParser",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "TestRSPQLParserCB",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.csparql2.syntax.TestRSPQLParserCB",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "TestRSPQLParserLS",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.csparql2.syntax.TestRSPQLParserLS",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "TestSharedCtxIdentification",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.TestSharedCtxIdentification",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "CSPARQLReadyToGo",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.CSPARQLReadyToGo.CSPARQLReadyToGo",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "CSPARQLExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.CSPARQLExample",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "CSPARQLStaticDataExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.CSPARQLStaticDataExample",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "ColorsCSPARQLExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.color.ColorsCSPARQLExample",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "GELDTArticleExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.geldt.GELDTArticleExample",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "GELDTImageExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.esper.engine.geldt.GELDTImageExample",
+            "projectName": "csparql2"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionAssignment",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.assignment.AbstractionAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RAssignment",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.assignment.CustomR2RAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingAssignment",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.assignment.QueryProcessingAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.example.AbstractionExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.example.CustomR2RExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.example.QueryProcessingExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionSolution",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.solution.AbstractionSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RSolution",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.solution.CustomR2RSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingSolution",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.processing.solution.QueryProcessingSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "StreamGenerator",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.bigdata2021.utils.StreamGenerator",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionAssignment(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.assignment.AbstractionAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RAssignment(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.assignment.CustomR2RAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingAssignment(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.assignment.QueryProcessingAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionExample(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.example.AbstractionExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RExample(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.example.CustomR2RExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingExample(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.example.QueryProcessingExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionSolution(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.solution.AbstractionSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RSolution(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.solution.CustomR2RSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingSolution(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.processing.solution.QueryProcessingSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "PublicationSolution",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.debs2021.publishing.PublicationSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "PublicationExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.examples.publication.PublicationExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "PublishedExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.examples.publication.PublishedExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "WebsocketStream",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.examples.stream.WebsocketStream",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CSpriteExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.chapter3.CSpriteExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionAssignment(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.assignment.AbstractionAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RAssignment(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.assignment.CustomR2RAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingAssignment(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.assignment.QueryProcessingAssignment",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionExample(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.example.AbstractionExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RExample(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.example.CustomR2RExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingExample(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.example.QueryProcessingExample",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "AbstractionSolution(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.solution.AbstractionSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CustomR2RSolution(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.solution.CustomR2RSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "QueryProcessingSolution(2)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.locationscenario.solution.QueryProcessingSolution",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "ProcessingDBPediaLive",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.ProcessingDBPediaLive",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "ProcessingGDELT",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.ProcessingGDELT",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "ProcessingWikimedia",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.ProcessingWikimedia",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "GDELTDataFetcher",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.gdeltutils.GDELTDataFetcher",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "GeoNamesLocationsLookup",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.gdeltutils.GeoNamesLocationsLookup",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "RegexSplitterFunction",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.wspbook.wildstreams.gdeltutils.RegexSplitterFunction",
+            "projectName": "examples"
+        },
+        {
+            "type": "java",
+            "name": "CPTest",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.operatorapi.CPTest",
+            "projectName": "operatorapi"
+        },
+        {
+            "type": "java",
+            "name": "PublicationExample(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp.PublicationExample",
+            "projectName": "web"
+        },
+        {
+            "type": "java",
+            "name": "PublishedExample(1)",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp.PublishedExample",
+            "projectName": "web"
+        },
+        {
+            "type": "java",
+            "name": "CQELSBindingExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.examples.CQELSBindingExample",
+            "projectName": "yasper"
+        },
+        {
+            "type": "java",
+            "name": "AbstractQueryExample",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.yasper.AbstractQueryExample",
+            "projectName": "yasper"
+        },
+        {
+            "type": "java",
+            "name": "QueryTest",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.yasper.QueryTest",
+            "projectName": "yasper"
+        },
+        {
+            "type": "java",
+            "name": "QueryFactory",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.yasper.querying.syntax.QueryFactory",
+            "projectName": "yasper"
+        },
+        {
+            "type": "java",
+            "name": "TPQueryFactory",
+            "request": "launch",
+            "mainClass": "org.streamreasoning.rsp4j.yasper.querying.syntax.TPQueryFactory",
+            "projectName": "yasper"
+        }
+    ]
+}
