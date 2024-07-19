@@ -1,7 +1,17 @@
 package org.streamreasoning.rsp;
 
+import static org.streamreasoning.rsp.vocabulary.RDF.pTYPE;
+import static org.streamreasoning.rsp.vocabulary.VOCALS.STREAM_ENDPOINT;
+import static org.streamreasoning.rsp.vocabulary.VSD.PUBLISHING_SERVICE;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.api.IRI;
+import org.apache.commons.rdf.api.RDF;
 import org.apache.commons.rdf.jena.JenaGraph;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.apache.jena.query.Query;
@@ -17,15 +27,6 @@ import org.streamreasoning.rsp.enums.Protocol;
 import org.streamreasoning.rsp.vocabulary.DCAT;
 import org.streamreasoning.rsp4j.api.stream.data.DataStream;
 import org.streamreasoning.rsp4j.io.utils.parsing.ParsingStrategy;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.streamreasoning.rsp.vocabulary.RDF.pTYPE;
-import static org.streamreasoning.rsp.vocabulary.VOCALS.STREAM_ENDPOINT;
-import static org.streamreasoning.rsp.vocabulary.VSD.PUBLISHING_SERVICE;
 
 public class SLD {
 

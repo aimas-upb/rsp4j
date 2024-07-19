@@ -1,10 +1,10 @@
 package org.streamreasoning.rsp;
 
+import java.util.Objects;
+
 import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.api.IRI;
 import org.streamreasoning.rsp.vocabulary.VSD;
-
-import java.util.Objects;
 
 public class PublisherImpl implements SLD.Publisher {
     private final IRI iri;
@@ -13,6 +13,7 @@ public class PublisherImpl implements SLD.Publisher {
     public PublisherImpl(IRI iri, Graph g) {
         this.iri = iri;
         this.graph = g;
+        
         graph.add(VSD.publisher(this.uri()));
     }
 

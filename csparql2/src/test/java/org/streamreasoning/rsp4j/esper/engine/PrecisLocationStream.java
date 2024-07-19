@@ -1,13 +1,18 @@
 package org.streamreasoning.rsp4j.esper.engine;
 
 
-import lombok.extern.log4j.Log4j;
+import java.util.UUID;
+
 import org.apache.jena.graph.Graph;
-import org.apache.jena.rdf.model.*;
-import org.apache.jena.shared.uuid.JenaUUID;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.vocabulary.RDF;
 import org.streamreasoning.rsp4j.api.stream.data.DataStream;
 import org.streamreasoning.rsp4j.io.DataStreamImpl;
+
+import lombok.extern.log4j.Log4j;
 
 
 /**
@@ -47,7 +52,7 @@ public class PrecisLocationStream extends DataStreamImpl implements Runnable {
         Model m = ModelFactory.createDefaultModel();
         
         // generate a Jena URN for the PersonLocation assertion instance
-        Resource assertionInstance = m.createResource(stream_uri + "/" + JenaUUID.generate().asUUID().toString());
+        Resource assertionInstance = m.createResource(stream_uri + "/" + UUID.randomUUID().toString());
 
         m.add(m.createStatement(assertionInstance, RDF.type, 
             ResourceFactory.createResource(LOCATED_AT_ASSERTION)));
@@ -59,7 +64,7 @@ public class PrecisLocationStream extends DataStreamImpl implements Runnable {
             ResourceFactory.createResource(OBJECT_LAB308)));
 
         // add the timestamp annotation
-        Resource timestampAnnotation = m.createResource(JenaUUID.generate().asURN());
+        Resource timestampAnnotation = m.createResource("urn:uuid:" + UUID.randomUUID().toString());
         m.add(m.createStatement(timestampAnnotation, RDF.type, TIMESTAMP_ANN));
         m.add(m.createStatement(timestampAnnotation, 
             ResourceFactory.createProperty(ANN_HAS_VALUE), 

@@ -1,12 +1,16 @@
 package org.streamreasoning.rsp.vocabulary;
 
+//import org.apache.jena.graph.Triple;
+//import org.apache.jena.iri.IRI;
+
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.api.Triple;
 
 public class VSD extends Vocabulary {
 
     private static String uri = "http://w3id.org/rsp/vocals-sd#";
-
+    
+    
     public final static IRI URI_PARAM = resource("uri_param");
     public final static IRI BODY_PARAM = resource("body_param");
 
