@@ -1,6 +1,8 @@
 package org.streamreasoning.rsp4j.csparql2.syntax;
 
 
+import java.util.List;
+
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.TypeMapper;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
@@ -13,20 +15,102 @@ import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.binding.Binding;
 import org.apache.jena.sparql.engine.binding.BindingFactory;
-import org.apache.jena.sparql.expr.*;
+import org.apache.jena.sparql.expr.E_Add;
+import org.apache.jena.sparql.expr.E_BNode;
+import org.apache.jena.sparql.expr.E_Bound;
+import org.apache.jena.sparql.expr.E_Coalesce;
+import org.apache.jena.sparql.expr.E_Conditional;
+import org.apache.jena.sparql.expr.E_Datatype;
+import org.apache.jena.sparql.expr.E_DateTimeDay;
+import org.apache.jena.sparql.expr.E_DateTimeHours;
+import org.apache.jena.sparql.expr.E_DateTimeMinutes;
+import org.apache.jena.sparql.expr.E_DateTimeMonth;
+import org.apache.jena.sparql.expr.E_DateTimeSeconds;
+import org.apache.jena.sparql.expr.E_DateTimeTZ;
+import org.apache.jena.sparql.expr.E_DateTimeTimezone;
+import org.apache.jena.sparql.expr.E_DateTimeYear;
+import org.apache.jena.sparql.expr.E_Divide;
+import org.apache.jena.sparql.expr.E_Equals;
+import org.apache.jena.sparql.expr.E_Exists;
+import org.apache.jena.sparql.expr.E_Function;
+import org.apache.jena.sparql.expr.E_GreaterThan;
+import org.apache.jena.sparql.expr.E_GreaterThanOrEqual;
+import org.apache.jena.sparql.expr.E_IRI;
+import org.apache.jena.sparql.expr.E_IsBlank;
+import org.apache.jena.sparql.expr.E_IsIRI;
+import org.apache.jena.sparql.expr.E_IsLiteral;
+import org.apache.jena.sparql.expr.E_IsNumeric;
+import org.apache.jena.sparql.expr.E_Lang;
+import org.apache.jena.sparql.expr.E_LangMatches;
+import org.apache.jena.sparql.expr.E_LessThan;
+import org.apache.jena.sparql.expr.E_LessThanOrEqual;
+import org.apache.jena.sparql.expr.E_LogicalAnd;
+import org.apache.jena.sparql.expr.E_LogicalNot;
+import org.apache.jena.sparql.expr.E_LogicalOr;
+import org.apache.jena.sparql.expr.E_MD5;
+import org.apache.jena.sparql.expr.E_Multiply;
+import org.apache.jena.sparql.expr.E_NotEquals;
+import org.apache.jena.sparql.expr.E_NotExists;
+import org.apache.jena.sparql.expr.E_NotOneOf;
+import org.apache.jena.sparql.expr.E_Now;
+import org.apache.jena.sparql.expr.E_NumAbs;
+import org.apache.jena.sparql.expr.E_NumCeiling;
+import org.apache.jena.sparql.expr.E_NumFloor;
+import org.apache.jena.sparql.expr.E_NumRound;
+import org.apache.jena.sparql.expr.E_OneOf;
+import org.apache.jena.sparql.expr.E_Random;
+import org.apache.jena.sparql.expr.E_Regex;
+import org.apache.jena.sparql.expr.E_SHA1;
+import org.apache.jena.sparql.expr.E_SHA256;
+import org.apache.jena.sparql.expr.E_SHA384;
+import org.apache.jena.sparql.expr.E_SHA512;
+import org.apache.jena.sparql.expr.E_SameTerm;
+import org.apache.jena.sparql.expr.E_Str;
+import org.apache.jena.sparql.expr.E_StrAfter;
+import org.apache.jena.sparql.expr.E_StrBefore;
+import org.apache.jena.sparql.expr.E_StrConcat;
+import org.apache.jena.sparql.expr.E_StrContains;
+import org.apache.jena.sparql.expr.E_StrDatatype;
+import org.apache.jena.sparql.expr.E_StrEncodeForURI;
+import org.apache.jena.sparql.expr.E_StrEndsWith;
+import org.apache.jena.sparql.expr.E_StrLang;
+import org.apache.jena.sparql.expr.E_StrLength;
+import org.apache.jena.sparql.expr.E_StrLowerCase;
+import org.apache.jena.sparql.expr.E_StrReplace;
+import org.apache.jena.sparql.expr.E_StrStartsWith;
+import org.apache.jena.sparql.expr.E_StrSubstring;
+import org.apache.jena.sparql.expr.E_StrUUID;
+import org.apache.jena.sparql.expr.E_StrUpperCase;
+import org.apache.jena.sparql.expr.E_Subtract;
+import org.apache.jena.sparql.expr.E_URI;
+import org.apache.jena.sparql.expr.E_UUID;
+import org.apache.jena.sparql.expr.E_UnaryMinus;
+import org.apache.jena.sparql.expr.E_UnaryPlus;
+import org.apache.jena.sparql.expr.Expr;
+import org.apache.jena.sparql.expr.ExprList;
 import org.apache.jena.sparql.expr.aggregate.Aggregator;
 import org.apache.jena.sparql.expr.aggregate.AggregatorFactory;
 import org.apache.jena.sparql.expr.aggregate.Args;
 import org.apache.jena.sparql.graph.NodeConst;
 import org.apache.jena.sparql.path.Path;
 import org.apache.jena.sparql.path.PathParser;
-import org.apache.jena.sparql.syntax.*;
+import org.apache.jena.sparql.syntax.Element;
+import org.apache.jena.sparql.syntax.ElementBind;
+import org.apache.jena.sparql.syntax.ElementData;
+import org.apache.jena.sparql.syntax.ElementFilter;
+import org.apache.jena.sparql.syntax.ElementGroup;
+import org.apache.jena.sparql.syntax.ElementMinus;
+import org.apache.jena.sparql.syntax.ElementNamedGraph;
+import org.apache.jena.sparql.syntax.ElementOptional;
+import org.apache.jena.sparql.syntax.ElementPathBlock;
+import org.apache.jena.sparql.syntax.ElementSubQuery;
+import org.apache.jena.sparql.syntax.ElementTriplesBlock;
+import org.apache.jena.sparql.syntax.ElementUnion;
+import org.apache.jena.sparql.syntax.Template;
 import org.apache.jena.sparql.util.ExprUtils;
 import org.apache.jena.vocabulary.RDF;
 import org.streamreasoning.rsp4j.api.querying.syntax.RSPQLBaseVisitor;
 import org.streamreasoning.rsp4j.api.querying.syntax.RSPQLParser;
-
-import java.util.List;
 
 /**
  * This parser class is based on the RSP-QL syntax described using ANTRL4. The parse tree visitor maps the static
@@ -316,7 +400,7 @@ public class SPARQL11JenaVisitor extends RSPQLBaseVisitor {
                     }
 
                     if (property != null) {
-                        Triple triple = new Triple(subject, property, (Node) object);
+                        Triple triple = Triple.create(subject, property, (Node) object);
                         elb.addTriple(triple);
                     }
                     if (propertyPath != null) {
@@ -342,7 +426,7 @@ public class SPARQL11JenaVisitor extends RSPQLBaseVisitor {
             // Objects
             for (RSPQLParser.ObjectContext o : p.objectList().object()) {
                 Node object = (Node) o.accept(this);
-                Triple triple = new Triple(subject, property, object);
+                Triple triple = Triple.create(subject, property, object);
                 etb.addTriple(triple);
             }
         }
@@ -423,7 +507,7 @@ public class SPARQL11JenaVisitor extends RSPQLBaseVisitor {
             for (RSPQLParser.ObjectPathContext o : p.objectListPath().objectPath()) {
                 Node object = (Node) o.accept(this);
                 if (property != null) {
-                    Triple triple = new Triple(subject, property, object);
+                    Triple triple = Triple.create(subject, property, object);
                     elb.addTriple(triple);
                 }
                 if (propertyPath != null) {
@@ -450,16 +534,16 @@ public class SPARQL11JenaVisitor extends RSPQLBaseVisitor {
                 System.err.println("Complex values not yet supported in collections");
                 return epb;
             }
-            epb.addTriple(new Triple(current, RDF.first.asNode(), (Node) o));
+            epb.addTriple(Triple.create(current, RDF.first.asNode(), (Node) o));
             i++;
             if (ctx.graphNodePath().size() == i) {
                 break;
             }
             Node rest = NodeFactory.createBlankNode();
-            epb.addTriple(new Triple(current, RDF.rest.asNode(), rest));
+            epb.addTriple(Triple.create(current, RDF.rest.asNode(), rest));
             current = rest;
         }
-        epb.addTriple(new Triple(current, RDF.rest.asNode(), RDF.nil.asNode()));
+        epb.addTriple(Triple.create(current, RDF.rest.asNode(), RDF.nil.asNode()));
         return epb;
     }
 
