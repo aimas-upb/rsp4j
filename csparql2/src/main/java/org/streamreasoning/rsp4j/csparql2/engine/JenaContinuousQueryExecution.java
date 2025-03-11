@@ -1,9 +1,21 @@
 package org.streamreasoning.rsp4j.csparql2.engine;
 
 
-import lombok.extern.log4j.Log4j;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import org.apache.jena.datatypes.xsd.XSDDatatype;
-import org.apache.jena.graph.*;
+import org.apache.jena.graph.Graph;
+import org.apache.jena.graph.GraphMemFactory;
+import org.apache.jena.graph.Node;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.irix.IRIs;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -27,8 +39,7 @@ import org.streamreasoning.rsp4j.api.sds.SDS;
 import org.streamreasoning.rsp4j.api.sds.timevarying.TimeVarying;
 import org.streamreasoning.rsp4j.api.stream.data.DataStream;
 
-import java.util.*;
-import java.util.stream.Stream;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Created by riccardo on 03/07/2017.
@@ -106,7 +117,8 @@ public class JenaContinuousQueryExecution extends Observable implements Observer
 
     public Graph apply(Binding b, long now) {
         // Iteration is a new mapping of bnodes.
-        Graph g = Factory.createGraphMem();
+        // Graph g = Factory.createGraphMem();
+        Graph g = GraphMemFactory.createGraphMem();
         Map<Node, Node> bNodeMap = new HashMap<>();
         bNodeMap.clear();
         List<Quad> quads = template.getQuads();
